@@ -44,20 +44,24 @@ WatchFaceOldDigi::WatchFaceOldDigi(DisplayApp* app,
   lv_img_set_src(bg_clock_img, &digistyle);
   lv_obj_align(bg_clock_img, nullptr, LV_ALIGN_CENTER, 0, 0);
 
-
   batteryIcon.Create(lv_scr_act());
   batteryIcon.SetColor(lv_color_hex(0x000000));
-  lv_obj_align(batteryIcon.GetObject(), lv_scr_act(), LV_ALIGN_IN_TOP_RIGHT, -10, 32);
+  lv_obj_align(batteryIcon.GetObject(), lv_scr_act(), LV_ALIGN_IN_TOP_RIGHT, -10, 35);
+
+  label_battery_vallue = lv_label_create(lv_scr_act(), nullptr);
+  lv_obj_set_style_local_text_color(label_battery_vallue, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x000000));
+  lv_label_set_text_static(label_battery_vallue, "00%");
+  lv_obj_align(label_battery_vallue, batteryIcon.GetObject(), LV_ALIGN_OUT_LEFT_MID, -5, 0);
 
   batteryPlug = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(batteryPlug, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x000000));
   lv_label_set_text(batteryPlug, Symbols::plug);
-  lv_obj_align(batteryPlug, batteryIcon.GetObject(), LV_ALIGN_OUT_LEFT_MID, -5, 30);
+  lv_obj_align(batteryPlug, label_battery_vallue, LV_ALIGN_OUT_LEFT_MID, -5, 0);
 
   bleIcon = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x000000));
   lv_label_set_text(bleIcon, Symbols::bluetooth);
-  lv_obj_align(bleIcon, batteryPlug, LV_ALIGN_OUT_LEFT_MID, -5, 30);
+  lv_obj_align(bleIcon, batteryPlug, LV_ALIGN_OUT_LEFT_MID, -5, 0);
 
   notificationIcon = lv_label_create(lv_scr_act(), NULL);
   lv_obj_set_style_local_text_color(notificationIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x000000));
@@ -126,16 +130,18 @@ void WatchFaceOldDigi::Refresh() {
   if (batteryPercentRemaining.IsUpdated()) {
     auto batteryPercent = batteryPercentRemaining.Get();
     batteryIcon.SetBatteryPercentage(batteryPercent);
-    // lv_label_set_text_fmt(label_battery_vallue, "%d%%", batteryPercent);
+    lv_label_set_text_fmt(label_battery_vallue, "%d%%", batteryPercent);
   }
 
   bleState = bleController.IsConnected();
   if (bleState.IsUpdated()) {
     lv_label_set_text(bleIcon, BleIcon::GetIcon(bleState.Get()));
   }
-  lv_obj_align(batteryIcon.GetObject(), lv_scr_act(), LV_ALIGN_IN_TOP_RIGHT, -10, 35);
-  lv_obj_align(batteryPlug, batteryIcon.GetObject(), LV_ALIGN_OUT_LEFT_MID, -5, 0);
-  lv_obj_align(bleIcon, batteryPlug, LV_ALIGN_OUT_LEFT_MID, -5, 0);
+  lv_obj_realign(label_battery_vallue);
+  lv_obj_realign(batteryIcon.GetObject());
+  lv_obj_realign(batteryPlug);
+  lv_obj_realign(bleIcon);
+  lv_obj_realign(notificationIcon);
 
   notificationState = notificationManager.AreNewNotificationsAvailable();
   if (notificationState.IsUpdated()) {
