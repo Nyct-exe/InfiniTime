@@ -1,5 +1,7 @@
 # [InfiniTime](https://github.com/InfiniTimeOrg/InfiniTime)
 
+Implemented ZephyrLabs Digistyle Watch:  https://zephyrlabs.github.io/Watchfaces/
+
 [![Build PineTime Firmware](https://github.com/InfiniTimeOrg/InfiniTime/workflows/Build%20PineTime%20Firmware/badge.svg?branch=master)](https://github.com/InfiniTimeOrg/InfiniTime/actions)
 
 ![InfiniTime logo](doc/logo/infinitime-logo-small.jpg "InfiniTime Logo")
