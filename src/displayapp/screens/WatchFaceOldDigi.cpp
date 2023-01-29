@@ -87,7 +87,7 @@ WatchFaceOldDigi::WatchFaceOldDigi(DisplayApp* app,
   label_time_ampm = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(label_time_ampm, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x000000));
   lv_label_set_text_static(label_time_ampm, "");
-  lv_obj_align(label_time_ampm, lv_scr_act(), LV_ALIGN_IN_RIGHT_MID, -35, -55);
+  lv_obj_align(label_time_ampm, lv_scr_act(), LV_ALIGN_IN_RIGHT_MID, -35, -20);
 
   backgroundLabel = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_click(backgroundLabel, true);
@@ -193,7 +193,7 @@ void WatchFaceOldDigi::Refresh() {
         }
         lv_label_set_text(label_time_ampm, ampmChar);
         lv_label_set_text_fmt(label_time, "%2d:%02d", hour, minute);
-        lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_IN_RIGHT_MID, 0, 0);
+        lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
       } else {
         lv_label_set_text_fmt(label_time, "%02d:%02d", hour, minute);
         lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
