@@ -32,11 +32,14 @@ namespace Pinetime {
                          Controllers::NotificationManager& notificationManager,
                          Controllers::Settings& settingsController,
                          Controllers::HeartRateController& heartRateController,
-                         Controllers::MotionController& motionController
+                         Controllers::MotionController& motionController,
+                         Controllers::FS& filesystem
                          );
         ~WatchFaceOldDigi() override;
 
         void Refresh() override;
+
+        static bool IsAvailable(Pinetime::Controllers::FS& filesystem);
 
       private:
         uint8_t displayedHour = -1;
@@ -82,6 +85,7 @@ namespace Pinetime {
 
         lv_task_t* taskRefresh;
         Widgets::StatusIcons statusIcons;
+        lv_font_t* font_segment100 = nullptr;
       };
     }
   }

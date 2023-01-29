@@ -26,7 +26,8 @@ WatchFaceOldDigi::WatchFaceOldDigi(DisplayApp* app,
                                    Controllers::NotificationManager& notificationManager,
                                    Controllers::Settings& settingsController,
                                    Controllers::HeartRateController& heartRateController,
-                                   Controllers::MotionController& motionController)
+                                   Controllers::MotionController& motionController,
+                                   Controllers::FS& filesystem)
   : Screen(app),
     currentDateTime {{}},
     dateTimeController {dateTimeController},
@@ -39,6 +40,12 @@ WatchFaceOldDigi::WatchFaceOldDigi(DisplayApp* app,
     statusIcons(batteryController, bleController) {
   
   statusIcons.Create();
+
+  lfs_file f = {};
+  if (filesystem.FileOpen(&f, "/fonts/7segments_slim_100.bin", LFS_O_RDONLY) >= 0) {
+    filesystem.FileClose(&f);
+    font_segment100 = lv_font_load("F:/fonts/7segments_slim_100.bin");
+  }
     
   lv_obj_t* bg_clock_img = lv_img_create(lv_scr_act(), nullptr);
   lv_img_set_src(bg_clock_img, &digistyle);
@@ -74,7 +81,7 @@ WatchFaceOldDigi::WatchFaceOldDigi(DisplayApp* app,
 
   label_time = lv_label_create(lv_scr_act(), nullptr);
   lv_obj_set_style_local_text_color(label_time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x000000));
-  lv_obj_set_style_local_text_font(label_time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, &jetbrains_mono_extrabold_compressed);
+  lv_obj_set_style_local_text_font(label_time, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, font_segment100);
   lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
 
   label_time_ampm = lv_label_create(lv_scr_act(), nullptr);
@@ -115,6 +122,11 @@ WatchFaceOldDigi::WatchFaceOldDigi(DisplayApp* app,
 
 WatchFaceOldDigi::~WatchFaceOldDigi() {
   lv_task_del(taskRefresh);
+
+  if (font_segment100 != nullptr) {
+    lv_font_free(font_segment100);
+  }
+
   lv_obj_clean(lv_scr_act());
 }
 
@@ -235,4 +247,14 @@ void WatchFaceOldDigi::Refresh() {
     lv_obj_align(stepValue, lv_scr_act(), LV_ALIGN_IN_BOTTOM_RIGHT, -5, -2);
     lv_obj_align(stepIcon, stepValue, LV_ALIGN_OUT_LEFT_MID, -5, 0);
   }
+}
+
+bool WatchFaceOldDigi::IsAvailable(Pinetime::Controllers::FS& filesystem){
+  lfs_file file = {};
+
+  if (filesystem.FileOpen(&file, "/fonts/7segments_slim_100.bin", LFS_O_RDONLY) < 0) {
+    return false;
+  }
+  filesystem.FileClose(&file);
+  return true;
 }
