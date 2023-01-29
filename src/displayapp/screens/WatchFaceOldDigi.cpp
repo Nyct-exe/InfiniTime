@@ -13,11 +13,8 @@
 #include "components/heartrate/HeartRateController.h"
 #include "components/motion/MotionController.h"
 #include "components/settings/Settings.h"
-#include "displayapp/icons/digiclock/digistyle.c"
 
 using namespace Pinetime::Applications::Screens;
-
-LV_IMG_DECLARE(digistyle);
 
 WatchFaceOldDigi::WatchFaceOldDigi(DisplayApp* app,
                                    Controllers::DateTime& dateTimeController,
@@ -48,7 +45,7 @@ WatchFaceOldDigi::WatchFaceOldDigi(DisplayApp* app,
   }
     
   lv_obj_t* bg_clock_img = lv_img_create(lv_scr_act(), nullptr);
-  lv_img_set_src(bg_clock_img, &digistyle);
+  lv_img_set_src(bg_clock_img, "F:/images/digistyle_bg.bin");
   lv_obj_align(bg_clock_img, nullptr, LV_ALIGN_CENTER, 0, 0);
 
   batteryIcon.Create(lv_scr_act());
@@ -255,6 +252,12 @@ bool WatchFaceOldDigi::IsAvailable(Pinetime::Controllers::FS& filesystem){
   if (filesystem.FileOpen(&file, "/fonts/7segments_slim_100.bin", LFS_O_RDONLY) < 0) {
     return false;
   }
+
+  filesystem.FileClose(&file);
+  if (filesystem.FileOpen(&file, "/images/digistyle_bg.bin", LFS_O_RDONLY) < 0) {
+    return false;
+  }
+
   filesystem.FileClose(&file);
   return true;
 }
