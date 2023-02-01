@@ -196,16 +196,3 @@ bool LittleVgl::GetTouchPadInfo(lv_indev_data_t* ptr) {
   }
   return false;
 }
-
-void LittleVgl::InitTheme() {
-
-  lv_theme_t* th = lv_pinetime_theme_init(LV_COLOR_WHITE,
-                                          LV_COLOR_SILVER,
-                                          0,
-                                          &jetbrains_mono_bold_20,
-                                          &jetbrains_mono_bold_20,
-                                          &jetbrains_mono_bold_20,
-                                          &jetbrains_mono_bold_20);
-
-  lv_theme_set_act(th);
-}
