@@ -248,6 +248,9 @@ void DisplayApp::Refresh() {
               case TouchEvents::SwipeDown:
                 LoadNewScreen(Apps::Notifications, DisplayApp::FullRefreshDirections::Down);
                 break;
+              case TouchEvents::SwipeLeft:
+                LoadNewScreen(Apps::Music, DisplayApp::FullRefreshDirections::LeftAnim);
+                break;
               case TouchEvents::SwipeRight:
                 LoadNewScreen(Apps::QuickSettings, DisplayApp::FullRefreshDirections::RightAnim);
                 break;
