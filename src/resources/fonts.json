@@ -38,7 +38,7 @@
    "7segments_40" : {
       "sources": [
          {
-            "file": "fonts/7segments.woff",
+            "file": "fonts/7segment.woff",
             "symbols": "0123456789: -"
          }
       ],
@@ -50,24 +50,12 @@
    "7segments_115" : {
       "sources": [
          {
-            "file": "fonts/7segments.woff",
+            "file": "fonts/7segment.woff",
             "symbols": "0123456789: -"
          }
       ],
       "bpp": 1,
       "size": 115,
-      "format": "bin",
-      "target_path": "/fonts/"
-   },
-   "7segments_slim_100" : {
-      "sources": [
-         {
-            "file": "fonts/7segment_slim.ttf",
-            "symbols": "0123456789-MONDAYTUEWEDTHUFRISATSUN WK:"
-         }
-      ],
-      "bpp": 1,
-      "size": 100,
       "format": "bin",
       "target_path": "/fonts/"
    }

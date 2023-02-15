@@ -1,6 +1,7 @@
 # [InfiniTime](https://github.com/InfiniTimeOrg/InfiniTime)
+Original WatchFace: https://github.com/faxe1008/InfiniTime/tree/gravel-watchface
 
-Implemented ZephyrLabs Digistyle Watch:  https://zephyrlabs.github.io/Watchfaces/
+However I wanted a swipe right action to open a music player.
 
 ## Showcase
 

@@ -5,12 +5,5 @@
       "output_format": "bin",
       "binary_format": "ARGB8565_RBSWAP",
       "target_path": "/images/"
-   },
-   "digistyle_bg" : {
-      "sources": "images/digistyle.png",
-      "color_format": "CF_INDEXED_2_BIT",
-      "output_format": "bin",
-      "binary_format": "ARGB8565_RBSWAP",
-      "target_path": "/images/"
    }
 }
